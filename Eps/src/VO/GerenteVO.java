@@ -11,26 +11,43 @@ package VO;
  */
 public class GerenteVO {
     private int id;
-    private String Nombre_usuario;
+    private String Nombres;
+    private String Apellidos;
+    private String email;
     private String contraseña;
-    private String Regsitro_EPS;
-    private String registro_clientes;
-    private String analisis_inventario;
+    private int Regsitro_EPS;
+    private int registro_clientes;
 
-    public int getid() {
+    public int getId() {
         return id;
     }
 
-    public void setid(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getNombre_usuario() {
-        return Nombre_usuario;
+    public String getNombres() {
+        return Nombres;
     }
 
-    public void setNombre_usuario(String Nombre_usuario) {
-        this.Nombre_usuario = Nombre_usuario;
+    public void setNombres(String Nombres) {
+        this.Nombres = Nombres;
+    }
+
+    public String getApellidos() {
+        return Apellidos;
+    }
+
+    public void setApellidos(String Apellidos) {
+        this.Apellidos = Apellidos;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getContraseña() {
@@ -41,19 +58,19 @@ public class GerenteVO {
         this.contraseña = contraseña;
     }
 
-    public String getRegsitro_EPS() {
+    public int getRegsitro_EPS() {
         return Regsitro_EPS;
     }
 
-    public void setRegsitro_EPS(String Regsitro_EPS) {
+    public void setRegsitro_EPS(int Regsitro_EPS) {
         this.Regsitro_EPS = Regsitro_EPS;
     }
 
-    public String getRegistro_clientes() {
+    public int getRegistro_clientes() {
         return registro_clientes;
     }
 
-    public void setRegistro_clientes(String registro_clientes) {
+    public void setRegistro_clientes(int registro_clientes) {
         this.registro_clientes = registro_clientes;
     }
 
@@ -64,4 +81,7 @@ public class GerenteVO {
     public void setAnalisis_inventario(String analisis_inventario) {
         this.analisis_inventario = analisis_inventario;
     }
+    private String analisis_inventario;
+
+    
 }
