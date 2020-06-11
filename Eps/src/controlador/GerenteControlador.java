@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelo.gerenteModel;
+import vista.CRUD_gerente;
 
 /**
  *
@@ -32,20 +33,20 @@ public class GerenteControlador {
 
     }
 
-//    public void autenticarUsuario() {
-//
-//        boolean respuesta = this.gerente.AutenticarUsurario();
-//        if (respuesta) {
-//
-//            JOptionPane.showMessageDialog(this.jFrame, "Usuario Registrado");
-//            new Administrar_Usuario().setVisible(true);
-//            this.jFrame.setVisible(false);
-//
-//        } else {
-//
-//            JOptionPane.showMessageDialog(this.jFrame, "Usuario No  Registrado");
-//        }
-//    }
+    public void autenticarUsuario(String Rol) {
+
+         boolean respuesta = this.gerente.AutenticarUsurario(Rol);
+        if (respuesta) {
+
+            JOptionPane.showMessageDialog(this.jFrame, "Usuario Correcto");
+            new CRUD_gerente().setVisible(true);
+            this.jFrame.setVisible(false);
+
+        } else {
+
+            JOptionPane.showMessageDialog(this.jFrame, "Usuario No  Registrado");
+        }
+    }
 
     public ArrayList<GerenteVO> listarGerente() {
 
