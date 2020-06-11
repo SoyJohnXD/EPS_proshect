@@ -8,6 +8,7 @@ package modelo;
 import VO.GerenteVO;
 import bd.Conexion;
 import com.mysql.jdbc.Connection;
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,25 +39,32 @@ public class gerenteModel {
     }
     
     
-    public GerenteVO consultarGenrente() {
+    public ArrayList<GerenteVO> ConFiltro(String filtro, String consulta) {
         try {
             //sentencia con un parámetro indicado por el signo ?
-            String sentencia = "SELECT * FROM " + TABLA + " WHERE Nombre_usuario=?";
+           String sentencia = "call spConsultarGerentes(?,?)";
             //Preparar la sentencia
-            PreparedStatement ps = this.conn.prepareStatement(sentencia);
-            ps.setString(1, this.gerenteVO.getNombre_usuario());
+            CallableStatement pa = conn.prepareCall(sentencia); 
+            pa.setString(0, filtro);            
+            pa.setString(0, consulta);
             //almacenar resultado
-            ResultSet resultado = ps.executeQuery();
+            ResultSet resultado = pa.executeQuery();
             //recorrer resultado
+             ArrayList<GerenteVO> listaUsuario = new ArrayList<GerenteVO>();
             while (resultado.next()) {
-                this.gerenteVO.setNombre_usuario(resultado.getString("Nombre_usuario"));
-                this.gerenteVO.setContraseña(resultado.getString("Contraseña"));
-                this.gerenteVO.setRegistro_clientes(resultado.getString("registro_clientes"));
-                this.gerenteVO.setRegsitro_EPS(resultado.getString("registro_Eps"));
-                this.gerenteVO.setAnalisis_inventario(resultado.getString("analisis_Inventario"));
+                 GerenteVO ge = new GerenteVO();
+                ge.setId(resultado.getInt("id"));
+                ge.setContraseña(resultado.getString("contraseña"));
+                ge.setNombres(resultado.getString("nombres"));
+                ge.setApellidos(resultado.getString("apellidos"));
+                ge.setEmail(resultado.getString("email"));
+                ge.setRegsitro_EPS(resultado.getInt("registro_eps"));
+                ge.setRegistro_clientes(resultado.getInt("registro_clientes"));
+                ge.setAnalisis_inventario(resultado.getString("analisis_inventario"));
+                listaUsuario.add(ge);
 
             }
-            return this.gerenteVO;
+            return  listaUsuario;
 
         } catch (SQLException ex) {
             System.out.println("error en consultar usuario: " + ex.getMessage());
@@ -68,20 +76,23 @@ public class gerenteModel {
      public ArrayList<GerenteVO> listarGerente() {
         try {
             //sentencia con un parámetro indicado por el signo ?
-            String sentencia = "SELECT * FROM " + TABLA + " WHERE 1";
-            //Preparar la sentencia
-            PreparedStatement ps = this.conn.prepareStatement(sentencia);
+             String sentencia = "call spConsultarGerentes()";
+            //preparar sentencia
+      
+            CallableStatement pa = this.conn.prepareCall(sentencia);
             //almacenar resultado
-            ResultSet resultado = ps.executeQuery();
+            ResultSet resultado = pa.executeQuery();
             //recorrer resultado
             ArrayList<GerenteVO> listaUsuario = new ArrayList<GerenteVO>();
             while (resultado.next()) {
                 GerenteVO ge = new GerenteVO();
-                ge.setid(resultado.getInt("id"));
-                ge.setNombre_usuario(resultado.getString("Nombre_usuario"));
-                ge.setContraseña(resultado.getString("Contraseña"));
-                ge.setRegistro_clientes(resultado.getString("registro_clientes"));
-                ge.setRegsitro_EPS(resultado.getString("registro_Eps"));
+                ge.setId(resultado.getInt("id"));
+                ge.setContraseña(resultado.getString("contraseña"));
+                ge.setNombres(resultado.getString("nombres"));
+                ge.setApellidos(resultado.getString("apellidos"));
+                ge.setEmail(resultado.getString("email"));
+                ge.setRegsitro_EPS(resultado.getInt("registro_eps"));
+                ge.setRegistro_clientes(resultado.getInt("registro_clientes"));
                 ge.setAnalisis_inventario(resultado.getString("analisis_inventario"));
                 listaUsuario.add(ge);
             }
@@ -96,22 +107,24 @@ public class gerenteModel {
      public boolean insertarGerente() {
         try {
             //Los parámetros se identifican con el ?, inician desde 1 y se cuenta de izquierda a derecha
-            String sentencia = "INSERT INTO " + TABLA + " (id,Nombre_usuario,Contraseña,registro_clientes,registro_Eps,analisis_Inventario) VALUES (?,?,?,?,?,?)";
+            String sentencia = "call spInsertGerente (?,?,?,?,?,?,?)";
             //preparar sentencia
-            PreparedStatement ps = this.conn.prepareStatement(sentencia);
+      
+            CallableStatement pa = this.conn.prepareCall(sentencia);
             //le paso los parámetros
-            ps.setInt(1, gerenteVO.getid());
-            ps.setString(2, gerenteVO.getNombre_usuario());
-            ps.setString(3, gerenteVO.getContraseña());
-            ps.setString(4, gerenteVO.getRegistro_clientes());
-            ps.setString(5, gerenteVO.getRegsitro_EPS());
-            ps.setString(6, gerenteVO.getAnalisis_inventario());
+            pa.setString(1, gerenteVO.getNombres());
+            pa.setString(2, gerenteVO.getApellidos());
+            pa.setString(3, gerenteVO.getEmail());
+            pa.setString(4, gerenteVO.getContraseña());
+            pa.setInt(5, gerenteVO.getRegsitro_EPS());
+            pa.setInt(6, gerenteVO.getRegistro_clientes());
+            pa.setString(7, gerenteVO.getAnalisis_inventario());
             //ejecutar sentencia
-            ps.execute();
+            pa.execute();
             return true;
         } 
         catch (SQLException ex) {
-           
+       
        
         }
         return false;
@@ -120,23 +133,29 @@ public class gerenteModel {
         try {
             //Los parámetros se identifican con el ?, inician desde 1 y se cuenta de izquierda a derecha
            
-            String sentencia = "UPDATE "+TABLA+" SET `Nombre_usuario`=?,`Contraseña`=?,`registro_clientes`=?,`registro_Eps`= ? ,`analisis_Inventario`=? WHERE id = ? ";
+            String sentencia = "call spUpdateGerente (?,?,?,?,?,?,?,?)";
             //Preparar la sentencia
-            PreparedStatement ps = this.conn.prepareStatement(sentencia);
+             CallableStatement ps = this.conn.prepareCall(sentencia);
             
-            ps.setString(1, gerenteVO.getNombre_usuario());
-            ps.setString(2, gerenteVO.getContraseña());
-            ps.setString(3, gerenteVO.getRegistro_clientes());
-            ps.setString(4, gerenteVO.getRegsitro_EPS());
-            ps.setString(5, gerenteVO.getAnalisis_inventario());
-            ps.setInt(6, gerenteVO.getid());
-            int res = ps.executeUpdate();
+//            CallableStatement pa = this.conn.prepareCall(sentencia);
+            //le paso los parámetros
+            ps.setString(1, gerenteVO.getNombres());
+            ps.setString(2, gerenteVO.getApellidos());
+            ps.setString(3, gerenteVO.getEmail());
+            ps.setString(4, gerenteVO.getContraseña());
+            ps.setInt(5, gerenteVO.getRegsitro_EPS());
+            ps.setInt(6, gerenteVO.getRegistro_clientes());
+            ps.setString(7, gerenteVO.getAnalisis_inventario());
+            ps.setInt(8, gerenteVO.getId());
+            //ejecutar sentencia
+            
+           int res = ps.executeUpdate();;
             //recorrer resultado
             if (res>0) {
                 JOptionPane.showMessageDialog(this.jFrame,"Gerente Aatualizado");
             }else {
-            JOptionPane.showMessageDialog(this.jFrame,"Numero de Id inexistente.");
-            }
+           JOptionPane.showMessageDialog(this.jFrame,"Numero de Id inexistente.");
+           }
             
             return false;
 
@@ -147,14 +166,14 @@ public class gerenteModel {
         return false;
     }
      
-     public boolean BorrarUseuario() {
+     public boolean BorrarGerente() {
         try {
             //Los parámetros se identifican con el ?, inician desde 1 y se cuenta de izquierda a derecha
-            String sentencia = "DELETE FROM "+TABLA+" WHERE `id` = ? ";
-            //preparar sentencia
-            PreparedStatement ps = this.conn.prepareStatement(sentencia);
+          String sentencia = "call spDeleteGerente (?)";
+            //Preparar la sentencia
+             CallableStatement ps = this.conn.prepareCall(sentencia);
             //le paso los parámetr
-             ps.setLong(1, gerenteVO.getid());
+             ps.setLong(1, gerenteVO.getId());
             //ejecutar sentencia
              int res = ps.executeUpdate();
            
@@ -177,7 +196,7 @@ public class gerenteModel {
             String sentencia = "SELECT * FROM " + TABLA + " WHERE Nombre_ususario=? AND Contraseña = ?";
             //Preparar la sentencia
             PreparedStatement ps = this.conn.prepareStatement(sentencia);
-            ps.setString(1, this.gerenteVO.getNombre_usuario());
+//            ps.setString(1, this.gerenteVO.getNombre_usuario());
              ps.setString(2, this.gerenteVO.getContraseña());
             //almacenar resultado
             ResultSet resultado = ps.executeQuery();

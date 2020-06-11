@@ -23,16 +23,16 @@ public class AppTest {
         // TODO code application logic here
         Connection conn = new Conexion().conectar();
 
-        GerenteVO geVO = new GerenteVO();
-        
-        System.out.println("CONSULTA APRENDIZ");
-        geVO.setNombre_usuario("john");
-        gerenteModel gerente = new gerenteModel(geVO);
-        geVO = gerente.consultarGenrente();
-        System.out.println("Nombre_ usuario: " + geVO.getNombre_usuario()+ " contraseña: "
-                + geVO.getContraseña()+ " registro_clientes: " + geVO.getRegistro_clientes());
+//        GerenteVO geVO = new GerenteVO();
 //        
-        
+//        System.out.println("CONSULTA APRENDIZ");
+//        geVO.setEmail("john");
+//        gerenteModel gerente = new gerenteModel(geVO);
+//        geVO = gerente.consultarGenrente();
+//        System.out.println("Nombre_ usuario: " + geVO.getEmail()+ " contraseña: "
+//                + geVO.getContraseña()+ " registro_clientes: " + geVO.getRegistro_clientes());
+////        
+//        
         
         
  //-------------------------Ingresar---------------------------------------------------       
