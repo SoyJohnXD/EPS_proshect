@@ -2,20 +2,8 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- *  Wenas
  */
 package vista;
-
-import VO.EpsVO;
-import VO.GerenteVO;
-import controlador.EpsControlador;
-import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-import modelo.epsModel;
 
 /**
  *
@@ -23,54 +11,11 @@ import modelo.epsModel;
  */
 public class EPS extends javax.swing.JFrame {
 
-    private EpsVO epsVO;
-    private EpsControlador epsControlador;
-    private epsModel eps;
-
     /**
      * Creates new form EPS
      */
     public EPS() {
         initComponents();
-        jTable1.getColumnModel().getColumn(0).setWidth(0);
-        jTable1.getColumnModel().getColumn(0).setMinWidth(0);
-        jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
-        jTable1.getColumnModel().getColumn(1).setWidth(0);
-        jTable1.getColumnModel().getColumn(1).setMinWidth(0);
-        jTable1.getColumnModel().getColumn(1).setMaxWidth(0);
-        epsVO = new EpsVO();
-        epsControlador = new EpsControlador((epsVO), this);
-        eps = new epsModel(epsVO);
-        jTable1.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent Mouse_evt) {
-                JTable table = (JTable) Mouse_evt.getSource();
-                Point point = Mouse_evt.getPoint();
-                int row = table.rowAtPoint(point);
-                if (Mouse_evt.getClickCount() == 1) {
-                    TxtNombres.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-                    TxtRegistro.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
-                    TxtBaseClientes.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString());
-                    TxtListaConvenios.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString());
-                    TxtConvenioPagos.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 5).toString());
-                    TxtPatologiaCliente.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 6).toString());
-                    ComboGerente.setSelectedItem(jTable1.getValueAt(jTable1.getSelectedRow(), 7).toString());
-                }
-
-            }
-        });
-                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        for (EpsVO u : epsControlador.listarEps()) {
-            String[] fila = {
-                    u.getNombre(),
-                    u.getRegistro(),
-                    String.valueOf(u.getPatologias_cliente()),
-                    String.valueOf(u.getLista_conve()),
-                    String.valueOf(u.getIdGerente()),
-                    String.valueOf(u.getConvenio_pago()),
-                    u.getEstado()};
-            model.addRow(fila);
-        }
-        ListSelectionModel listaEps;
     }
 
     /**
@@ -83,9 +28,9 @@ public class EPS extends javax.swing.JFrame {
     private void initComponents() {
 
         BtnBuscar = new javax.swing.JButton();
-        TxtRegistro = new javax.swing.JTextField();
+        TxtApellidos = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        TxtBaseClientes = new javax.swing.JTextField();
+        TxtEmail = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         CBFiltro = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
@@ -100,17 +45,16 @@ public class EPS extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         TxtNombres = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        TxtListaConvenios = new javax.swing.JTextField();
+        TxtPass = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        TxtConvenioPagos = new javax.swing.JTextField();
+        TxtRegisClient = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtFiltro = new javax.swing.JTextField();
-        ComboGerente = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        TxtPatologiaCliente = new javax.swing.JTextField();
+        TxtRegisClient1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("EPS");
 
         BtnBuscar.setBackground(new java.awt.Color(204, 255, 255));
         BtnBuscar.setText("Buscar");
@@ -120,17 +64,17 @@ public class EPS extends javax.swing.JFrame {
             }
         });
 
-        TxtRegistro.addActionListener(new java.awt.event.ActionListener() {
+        TxtApellidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtRegistroActionPerformed(evt);
+                TxtApellidosActionPerformed(evt);
             }
         });
 
         jLabel8.setText("Registro:");
 
-        TxtBaseClientes.addActionListener(new java.awt.event.ActionListener() {
+        TxtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtBaseClientesActionPerformed(evt);
+                TxtEmailActionPerformed(evt);
             }
         });
 
@@ -192,17 +136,17 @@ public class EPS extends javax.swing.JFrame {
 
         jLabel3.setText("Lista de convenios:");
 
-        TxtListaConvenios.addActionListener(new java.awt.event.ActionListener() {
+        TxtPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtListaConveniosActionPerformed(evt);
+                TxtPassActionPerformed(evt);
             }
         });
 
         jLabel4.setText("Convenio de pago:");
 
-        TxtConvenioPagos.addActionListener(new java.awt.event.ActionListener() {
+        TxtRegisClient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtConvenioPagosActionPerformed(evt);
+                TxtRegisClientActionPerformed(evt);
             }
         });
 
@@ -214,13 +158,13 @@ public class EPS extends javax.swing.JFrame {
             }
         });
 
-        ComboGerente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel5.setText("Patología clientes:");
 
-        TxtPatologiaCliente.addActionListener(new java.awt.event.ActionListener() {
+        TxtRegisClient1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtPatologiaClienteActionPerformed(evt);
+                TxtRegisClient1ActionPerformed(evt);
             }
         });
 
@@ -239,11 +183,11 @@ public class EPS extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel9)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(TxtBaseClientes))
+                                        .addComponent(TxtEmail))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(TxtListaConvenios))
+                                        .addComponent(TxtPass))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -251,22 +195,22 @@ public class EPS extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel8)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(TxtRegistro)))
+                                        .addComponent(TxtApellidos)))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(ComboGerente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(TxtConvenioPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(TxtRegisClient, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel5)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(TxtPatologiaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(TxtRegisClient1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addContainerGap(39, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -277,15 +221,16 @@ public class EPS extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(BtnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jSeparator2)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtFiltro)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(CBFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 696, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtFiltro)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(CBFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 696, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -300,27 +245,25 @@ public class EPS extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(TxtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(TxtConvenioPagos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtRegisClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(TxtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5)
-                        .addComponent(TxtPatologiaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8)
-                        .addComponent(TxtRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(TxtRegisClient1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(TxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
-                        .addComponent(ComboGerente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel9)
-                        .addComponent(TxtBaseClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(TxtListaConvenios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TxtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3)
                     .addComponent(BtnRegistrar)
                     .addComponent(jButton2))
@@ -342,16 +285,16 @@ public class EPS extends javax.swing.JFrame {
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
         // TODO add your handling code here:
-
+   
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
-    private void TxtRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtRegistroActionPerformed
+    private void TxtApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtApellidosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtRegistroActionPerformed
+    }//GEN-LAST:event_TxtApellidosActionPerformed
 
-    private void TxtBaseClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtBaseClientesActionPerformed
+    private void TxtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtEmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtBaseClientesActionPerformed
+    }//GEN-LAST:event_TxtEmailActionPerformed
 
     private void BtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarActionPerformed
 
@@ -361,13 +304,13 @@ public class EPS extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtNombresActionPerformed
 
-    private void TxtListaConveniosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtListaConveniosActionPerformed
+    private void TxtPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtPassActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtListaConveniosActionPerformed
+    }//GEN-LAST:event_TxtPassActionPerformed
 
-    private void TxtConvenioPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtConvenioPagosActionPerformed
+    private void TxtRegisClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtRegisClientActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtConvenioPagosActionPerformed
+    }//GEN-LAST:event_TxtRegisClientActionPerformed
 
     private void txtFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltroActionPerformed
         // TODO add your handling code here:
@@ -377,9 +320,9 @@ public class EPS extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void TxtPatologiaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtPatologiaClienteActionPerformed
+    private void TxtRegisClient1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtRegisClient1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtPatologiaClienteActionPerformed
+    }//GEN-LAST:event_TxtRegisClient1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -420,15 +363,15 @@ public class EPS extends javax.swing.JFrame {
     private javax.swing.JButton BtnBuscar;
     private javax.swing.JButton BtnRegistrar;
     private javax.swing.JComboBox<String> CBFiltro;
-    private javax.swing.JComboBox<String> ComboGerente;
-    private javax.swing.JTextField TxtBaseClientes;
-    private javax.swing.JTextField TxtConvenioPagos;
-    private javax.swing.JTextField TxtListaConvenios;
+    private javax.swing.JTextField TxtApellidos;
+    private javax.swing.JTextField TxtEmail;
     private javax.swing.JTextField TxtNombres;
-    private javax.swing.JTextField TxtPatologiaCliente;
-    private javax.swing.JTextField TxtRegistro;
+    private javax.swing.JTextField TxtPass;
+    private javax.swing.JTextField TxtRegisClient;
+    private javax.swing.JTextField TxtRegisClient1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
