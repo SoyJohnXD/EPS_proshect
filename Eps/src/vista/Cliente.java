@@ -71,7 +71,7 @@ public class Cliente extends javax.swing.JFrame {
 
         jLabel2.setText("Nombres:");
 
-        CBFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Nombre", "Tipo", "Presentación" }));
+        CBFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Nombre", "Apellidos" }));
 
         TxtNombres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
