@@ -23,7 +23,6 @@ import javax.swing.JOptionPane;
 public class gerenteModel {
     private GerenteVO gerenteVO;
     private Connection conn;
-    private final String TABLA = "gerente";
     private JFrame jFrame;
     
     public GerenteVO getGerenteVO() {
