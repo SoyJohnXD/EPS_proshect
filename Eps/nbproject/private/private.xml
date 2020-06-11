@@ -4,11 +4,17 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
 <<<<<<< HEAD
+            <file>file:/C:/Users/developer3/Documents/Personal%20projects/EPS_proshect/Eps/src/controlador/GerenteControlador.java</file>
+            <file>file:/C:/Users/developer3/Documents/Personal%20projects/EPS_proshect/Eps/src/VO/GerenteVO.java</file>
+            <file>file:/C:/Users/developer3/Documents/Personal%20projects/EPS_proshect/Eps/src/vista/CRUD_gerente.java</file>
+=======
+<<<<<<< HEAD
             <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/Eps/src/modelo/gerenteModel.java</file>
             <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/Eps/src/VO/GerenteVO.java</file>
 =======
             <file>file:/C:/Users/developer3/Documents/Personal%20projects/EPS_proshect/Eps/src/vista/CRUD_gerente.java</file>
 >>>>>>> bd0d4af850ab84ac1655f59c702811e91dfad657
+>>>>>>> c3c121adbb48d3ba1a703b195e8a4449997337df
         </group>
     </open-files>
 </project-private>
