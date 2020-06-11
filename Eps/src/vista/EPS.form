@@ -52,6 +52,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="TxtConvenios" max="32767" attributes="0"/>
                               </Group>
+<<<<<<< HEAD
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -95,6 +96,52 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="TxtConveniosPago" min="-2" pref="166" max="-2" attributes="0"/>
                               </Group>
+=======
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jComboBox1" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="TxtRegisClient" min="-2" pref="211" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jButton3" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="TxtRegisClient1" min="-2" pref="211" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="39" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jSeparator1" alignment="0" pref="717" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="485" max="-2" attributes="0"/>
+                              <Component id="jButton2" min="-2" pref="102" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="BtnRegistrar" min="-2" pref="94" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtFiltro" max="32767" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="CBFiltro" min="-2" pref="96" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="BtnBuscar" min="-2" pref="100" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jScrollPane1" alignment="0" min="-2" pref="696" max="-2" attributes="0"/>
+>>>>>>> 0b46604fbb6c82a1309666a861b1bebf4db9abbe
                           </Group>
                       </Group>
                   </Group>
@@ -120,16 +167,40 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+<<<<<<< HEAD
                   <Component id="TxtRegistro" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ComboGerente" alignment="3" min="-2" max="-2" attributes="0"/>
+=======
+                  <Component id="TxtApellidos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="TxtRegisClient1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+>>>>>>> 0b46604fbb6c82a1309666a861b1bebf4db9abbe
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+<<<<<<< HEAD
                   <Component id="TxtBaseClientes" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ComboEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+=======
+                  <Component id="TxtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="TxtPass" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="BtnRegistrar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+>>>>>>> 0b46604fbb6c82a1309666a861b1bebf4db9abbe
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
@@ -167,6 +238,12 @@
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
+<<<<<<< HEAD
+=======
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="128" max="-2" attributes="0"/>
+              <EmptySpace pref="16" max="32767" attributes="0"/>
+>>>>>>> 0b46604fbb6c82a1309666a861b1bebf4db9abbe
           </Group>
       </Group>
     </DimensionLayout>
@@ -264,18 +341,24 @@
         <Component class="javax.swing.JTable" name="jTable1">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="0">
+              <Table columnCount="8" rowCount="0">
                 <Column editable="false" title="id" type="java.lang.Object"/>
                 <Column editable="false" title="Nombre" type="java.lang.Object"/>
                 <Column editable="true" title="Registro" type="java.lang.Object"/>
                 <Column editable="true" title="Base clientes" type="java.lang.Object"/>
                 <Column editable="true" title="Lista de convenios" type="java.lang.Object"/>
                 <Column editable="true" title="Convenio de pago" type="java.lang.Object"/>
+                <Column editable="true" title="Patolog&#xed;as" type="java.lang.Object"/>
                 <Column editable="true" title="Gerente" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -389,6 +472,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
+<<<<<<< HEAD
         <Property name="text" type="java.lang.String" value="Patologias Cliente:"/>
       </Properties>
     </Component>
@@ -415,5 +499,15 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
+=======
+        <Property name="text" type="java.lang.String" value="Patolog&#xed;a clientes:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="TxtRegisClient1">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TxtRegisClient1ActionPerformed"/>
+      </Events>
+    </Component>
+>>>>>>> 0b46604fbb6c82a1309666a861b1bebf4db9abbe
   </SubComponents>
 </Form>
