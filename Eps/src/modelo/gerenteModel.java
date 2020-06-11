@@ -190,13 +190,30 @@ public class gerenteModel {
         }
         return false;
     }
-     public boolean AutenticarUsurario() {
+     public boolean AutenticarUsurario(String Rol) {
         try {
-            //sentencia con un parámetro indicado por el signo ?
-            String sentencia = "SELECT * FROM " + TABLA + " WHERE Nombre_ususario=? AND Contraseña = ?";
+            if(Rol.equals("Gerente")){
+             //sentencia con un parámetro indicado por el signo ?
+           String sentencia = "call spLoginGerente (?,?)";
             //Preparar la sentencia
-            PreparedStatement ps = this.conn.prepareStatement(sentencia);
+             CallableStatement ps = this.conn.prepareCall(sentencia);
 //            ps.setString(1, this.gerenteVO.getNombre_usuario());
+             ps.setString(1, this.gerenteVO.getEmail());
+             ps.setString(2, this.gerenteVO.getContraseña());
+            //almacenar resultado
+            ResultSet resultado = ps.executeQuery();
+            //recorrer resultado
+            if (resultado.next()){
+            return true;    
+            }
+            return false;
+        }else if(Rol.equals("Cliente")){
+             //sentencia con un parámetro indicado por el signo ?
+           String sentencia = "call spLoginCliente (?,?)";
+            //Preparar la sentencia
+             CallableStatement ps = this.conn.prepareCall(sentencia);
+//            ps.setString(1, this.gerenteVO.getNombre_usuario());
+             ps.setString(1, this.gerenteVO.getEmail());
              ps.setString(2, this.gerenteVO.getContraseña());
             //almacenar resultado
             ResultSet resultado = ps.executeQuery();
@@ -205,6 +222,8 @@ public class gerenteModel {
             return true;    
             }
             return false;
+        }
+           
 
         } catch (SQLException ex) {
             System.out.println("error en Autenticar usuario: " + ex.getMessage());
