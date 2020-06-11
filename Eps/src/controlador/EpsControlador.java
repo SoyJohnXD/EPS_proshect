@@ -5,20 +5,20 @@
  */
 package controlador;
 
-import VO.GerenteVO;
+import VO.EpsVO;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import modelo.gerenteModel;
-import vista.CRUD_gerente;
+import modelo.epsModel;
+import vista.EPS;
 
 /**
  *
  * @author USUARIO
  */
-public class GerenteControlador {
-   private GerenteVO geVO;
-   private gerenteModel gerente; 
+public class EpsControlador {
+   private EpsVO epsVO;
+   private epsModel eps; 
    private JFrame jFrame;
 
 
@@ -26,76 +26,62 @@ public class GerenteControlador {
   
    
 
-    public GerenteControlador(GerenteVO geVO, JFrame jFrame) {
-        this.geVO = geVO;
-        this.gerente = new gerenteModel(geVO);
+    public EpsControlador(EpsVO epsVO, JFrame jFrame) {
+        this.epsVO = epsVO;
+        this.eps = new epsModel(epsVO);
         this.jFrame = jFrame;
 
     }
 
-    public void autenticarUsuario(String Rol) {
-
-         boolean respuesta = this.gerente.AutenticarUsurario(Rol);
-        if (respuesta) {
-
-            JOptionPane.showMessageDialog(this.jFrame, "Usuario Correcto");
-            new CRUD_gerente().setVisible(true);
+    public ArrayList<EpsVO> listarEps() {
+            new EPS().setVisible(true);
             this.jFrame.setVisible(false);
-
-        } else {
-
-            JOptionPane.showMessageDialog(this.jFrame, "Usuario No  Registrado");
-        }
+        return this.eps.listarEps();
     }
+ public void InEps() {
 
-    public ArrayList<GerenteVO> listarGerente() {
-
-        return this.gerente.listarGerente();
-    }
- public void InGerente() {
-
-        boolean respuesta = this.gerente.insertarGerente();
+        boolean respuesta = this.eps.insertarEps();
         if (respuesta) {
 
-            JOptionPane.showMessageDialog(this.jFrame, "Usuario Registrado");
+            JOptionPane.showMessageDialog(this.jFrame, "Eps Registrada!");
            
 
         } else {
 
-            JOptionPane.showMessageDialog(this.jFrame, "Usuario No  Registrado");
+            JOptionPane.showMessageDialog(this.jFrame, "No se pudo registrar la EPS");
         }
     }
  
- public void UpdateGerente() {
+ public void UpdateEps() {
 
-        boolean respuesta = this.gerente.ActualizarGerente();
+        boolean respuesta = this.eps.ActualizarGerente();
         if (respuesta) {
 
-            JOptionPane.showMessageDialog(this.jFrame, "Usuario Actualizado");
+            JOptionPane.showMessageDialog(this.jFrame, "Se actualizó la EPS");
            
 
         } else {
 
-            JOptionPane.showMessageDialog(this.jFrame, "Usuario No  Actualizado");
+            JOptionPane.showMessageDialog(this.jFrame, "No se pudo actualizar la EPS");
         }
     }
- public void DeleteGerente() {
+ public void DeleteEps() {
 
-        boolean respuesta = this.gerente.BorrarGerente();
+        boolean respuesta = this.eps.BorrarEps();
         if (respuesta) {
 
-            JOptionPane.showMessageDialog(this.jFrame, "Usuario Actualizado");
+            JOptionPane.showMessageDialog(this.jFrame, "Se eliminó la EPS");
            
 
         } else {
 
-            JOptionPane.showMessageDialog(this.jFrame, "Usuario No  Actualizado");
+            JOptionPane.showMessageDialog(this.jFrame, "No se pudo eliminar la EPS");
         }
     }
  
- public ArrayList<GerenteVO> ConFiltro(String Filtro, String Consulta) {
+ public ArrayList<EpsVO> ConFiltro(String Filtro, String Consulta) {
 
-         return this.gerente.ConFiltro(Filtro,Consulta);
+         return this.eps.ConFiltro(Filtro,Consulta);
         
     }
 }
