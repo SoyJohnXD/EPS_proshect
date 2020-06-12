@@ -40,25 +40,30 @@ public class medicamentosModel {
     public ArrayList<MedicamentosVO> ConFiltro(String filtro, String consulta) {
         try {
             //sentencia con un parámetro indicado por el signo ?
-           String sentencia = "call spConsultarGerentes(?,?)";
+           String sentencia = "" ;
+            if(filtro.equals("Nombre")){
+            sentencia = "call spConsultarMedicamentosName(?)";
+            }else if(filtro.equals("Tipo")){
+             sentencia = "call spConsultarMedicamentosTipo(?)";
+            }else if(filtro.equals("Presentacion")){
+             sentencia = "call spConsultarMedicamentosPres(?)";
+            }
             //Preparar la sentencia
             CallableStatement pa = conn.prepareCall(sentencia); 
-            pa.setString(0, filtro);            
-            pa.setString(0, consulta);
+           pa.setString(1, consulta);
             //almacenar resultado
             ResultSet resultado = pa.executeQuery();
             //recorrer resultado
              ArrayList<MedicamentosVO> listaUsuario = new ArrayList<MedicamentosVO>();
             while (resultado.next()) {
                  MedicamentosVO me = new MedicamentosVO();
-                me.setCodigo(resultado.getInt("id"));
+                me.setCodigo(resultado.getInt("codigo"));
                 me.setNombre(resultado.getString("nombre"));
                 me.setTipo(resultado.getString("tipo"));
                 me.setPresentacion(resultado.getString("presentacion"));
                 me.setCantidad(resultado.getInt("cantidad"));
                 me.setCura(resultado.getString("cura"));
                 me.setPrecio(resultado.getInt("precio"));
-                me.setEstado(resultado.getString("analisis_inventario"));
                 listaUsuario.add(me);
 
             }
@@ -84,14 +89,13 @@ public class medicamentosModel {
              ArrayList<MedicamentosVO> listaUsuario = new ArrayList<MedicamentosVO>();
             while (resultado.next()) {
                  MedicamentosVO me = new MedicamentosVO();
-                me.setCodigo(resultado.getInt("id"));
+                me.setCodigo(resultado.getInt("codigo"));
                 me.setNombre(resultado.getString("nombre"));
                 me.setTipo(resultado.getString("tipo"));
                 me.setPresentacion(resultado.getString("presentacion"));
                 me.setCantidad(resultado.getInt("cantidad"));
                 me.setCura(resultado.getString("cura"));
                 me.setPrecio(resultado.getInt("precio"));
-                me.setEstado(resultado.getString("analisis_inventario"));
                 listaUsuario.add(me);
 
             }
@@ -131,7 +135,7 @@ public class medicamentosModel {
         try {
             //Los parámetros se identifican con el ?, inician desde 1 y se cuenta de izquierda a derecha
            
-            String sentencia = "call spUpdateGerente (?,?,?,?,?,?,?)";
+            String sentencia = "call spUpdateMedicamento (?,?,?,?,?,?,?)";
             //Preparar la sentencia
              CallableStatement ps = this.conn.prepareCall(sentencia);
             
@@ -149,7 +153,7 @@ public class medicamentosModel {
            int res = ps.executeUpdate();;
             //recorrer resultado
             if (res>0) {
-                JOptionPane.showMessageDialog(this.jFrame,"Gerente Aatualizado");
+               return true;
             }else {
            JOptionPane.showMessageDialog(this.jFrame,"Numero de Id inexistente.");
            }
@@ -175,7 +179,7 @@ public class medicamentosModel {
              int res = ps.executeUpdate();
            
              if (res>0) {
-                JOptionPane.showMessageDialog(this.jFrame,"Gerente Eliminado");
+               return true;
                 
             }else {
             JOptionPane.showMessageDialog(this.jFrame,"Numero de cedula inexistente.");

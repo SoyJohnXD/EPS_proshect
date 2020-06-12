@@ -40,12 +40,19 @@ public class gerenteModel {
     
     public ArrayList<GerenteVO> ConFiltro(String filtro, String consulta) {
         try {
+            String sentencia = "" ;
+            if(filtro.equals("Nombres")){
+            sentencia = "call spConsultarGerentesName(?)";
+            }else if(filtro.equals("Email")){
+             sentencia = "call spConsultarGerentesEmail(?)";
+            }else if(filtro.equals("Apellidos")){
+             sentencia = "call spConsultarGerentesApellidos(?)";
+            }
             //sentencia con un parámetro indicado por el signo ?
-           String sentencia = "call spConsultarGerentes(?,?)";
+           
             //Preparar la sentencia
-            CallableStatement pa = conn.prepareCall(sentencia); 
-            pa.setString(0, filtro);            
-            pa.setString(0, consulta);
+            CallableStatement pa = conn.prepareCall(sentencia);            
+            pa.setString(1, consulta);
             //almacenar resultado
             ResultSet resultado = pa.executeQuery();
             //recorrer resultado
@@ -151,11 +158,9 @@ public class gerenteModel {
            int res = ps.executeUpdate();;
             //recorrer resultado
             if (res>0) {
-                JOptionPane.showMessageDialog(this.jFrame,"Gerente Aatualizado");
-            }else {
-           JOptionPane.showMessageDialog(this.jFrame,"Numero de Id inexistente.");
-           }
-            
+             return true;
+                
+            }            
             return false;
 
         } catch (SQLException ex) {

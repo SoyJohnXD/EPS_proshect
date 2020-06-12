@@ -40,26 +40,7 @@ public class CRUD_gerente extends javax.swing.JFrame {
         gerenteVO = new GerenteVO();
         gerenteControlador = new GerenteControlador((gerenteVO), this);
         gerente = new gerenteModel(gerenteVO);
-        jTable1.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent Mouse_evt) {
-                JTable table = (JTable) Mouse_evt.getSource();
-                Point point = Mouse_evt.getPoint();
-                int row = table.rowAtPoint(point);
-                if (Mouse_evt.getClickCount() == 1) {
-                    TxtPass.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-                    TxtId.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
-                    TxtNombres.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
-                    TxtApellidos.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString());
-                    TxtEmail.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString());
-                    TxtRegisClient.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 5).toString());
-                    TxtRegisEps.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 6).toString());
-                    TxtAnalisis.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 7).toString());
-                }
-
-            }
-        }
         
-     );
            
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         for (GerenteVO u : gerenteControlador.listarGerente()) {
@@ -99,9 +80,9 @@ public class CRUD_gerente extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         TxtAnalisis = new javax.swing.JTextField();
         BtnRegistrar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        jButton3 = new javax.swing.JButton();
+        BtnActualizar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
@@ -168,11 +149,21 @@ public class CRUD_gerente extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(204, 255, 255));
-        jButton2.setText("Limpiar");
+        btnLimpiar.setBackground(new java.awt.Color(204, 255, 255));
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
-        jButton3.setBackground(new java.awt.Color(255, 255, 204));
-        jButton3.setText("Actualizar");
+        BtnActualizar.setBackground(new java.awt.Color(255, 255, 204));
+        BtnActualizar.setText("Actualizar");
+        BtnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnActualizarActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -238,7 +229,7 @@ public class CRUD_gerente extends javax.swing.JFrame {
             }
         });
 
-        CBFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Nombres", "Apellidos" }));
+        CBFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Nombres", "Apellidos", "Email" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -281,11 +272,11 @@ public class CRUD_gerente extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(127, 127, 127)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(BtnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(BtnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(177, 177, 177))))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -341,8 +332,8 @@ public class CRUD_gerente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(TxtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2)
+                    .addComponent(BtnActualizar)
+                    .addComponent(btnLimpiar)
                     .addComponent(BtnRegistrar))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -354,7 +345,7 @@ public class CRUD_gerente extends javax.swing.JFrame {
                         .addComponent(CBFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         pack();
@@ -419,10 +410,12 @@ public class CRUD_gerente extends javax.swing.JFrame {
         }
     
       TxtNombres.setText("");
-      TxtNombres.setText("");
-      TxtNombres.setText("");
-      TxtNombres.setText("");
-      TxtNombres.setText("");
+      TxtApellidos.setText("");
+      TxtEmail.setText("");
+      TxtPass.setText("");
+      TxtRegisClient.setText("");
+      TxtRegisEps.setText("");
+      TxtAnalisis.setText("");
       
       }
     }//GEN-LAST:event_BtnRegistrarActionPerformed
@@ -470,6 +463,86 @@ public class CRUD_gerente extends javax.swing.JFrame {
             
               }
     }//GEN-LAST:event_BtnBuscarActionPerformed
+
+    private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
+if ((TxtNombres.getText().equals("")) || (TxtApellidos.getText().equals("")) || (TxtEmail.getText().equals("")) || (TxtPass.getText().equals("")) || (TxtRegisClient.getText().equals("")) || (TxtRegisEps.getText().equals(""))|| (TxtAnalisis.getText().equals(""))) {
+            JOptionPane.showMessageDialog(this, "No puedes dejar campos Vacios");
+        } else {
+            gerenteVO.setId(Integer.parseInt(TxtId.getText()));
+            gerenteVO.setNombres(TxtNombres.getText());
+            gerenteVO.setApellidos(TxtApellidos.getText());
+            gerenteVO.setEmail(TxtEmail.getText());
+            gerenteVO.setContraseña(TxtPass.getText());
+            gerenteVO.setRegistro_clientes(Integer.parseInt(TxtRegisClient.getText()));
+            gerenteVO.setRegsitro_EPS(Integer.parseInt(TxtRegisEps.getText()));
+            gerenteVO.setAnalisis_inventario(TxtAnalisis.getText());
+            gerenteControlador.UpdateGerente();
+               
+
+                DefaultTableModel tb = (DefaultTableModel) jTable1.getModel();
+                int a = jTable1.getRowCount() - 1;
+                for (int i = a; i >= 0; i--) {
+                    tb.removeRow(tb.getRowCount() - 1);
+                }
+
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                for (GerenteVO u : gerenteControlador.listarGerente()) {
+            String[] fila = {
+                String.valueOf(u.getId()),
+                u.getContraseña(),
+                u.getNombres(),
+                u.getApellidos(),
+                u.getEmail(),
+                String.valueOf(u.getRegsitro_EPS()),
+                String.valueOf(u.getRegistro_clientes()),
+                u.getAnalisis_inventario()};
+            model.addRow(fila);
+        }
+    
+      TxtNombres.setText("");
+      TxtApellidos.setText("");
+      TxtEmail.setText("");
+      TxtPass.setText("");
+      TxtRegisClient.setText("");
+      TxtRegisEps.setText("");
+      TxtAnalisis.setText("");
+      
+      }        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnActualizarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        // TODO add your handling code here:
+        
+        TxtNombres.setText("");
+      TxtApellidos.setText("");
+      TxtEmail.setText("");
+      TxtPass.setText("");
+      TxtRegisClient.setText("");
+      TxtRegisEps.setText("");
+      TxtAnalisis.setText("");
+      txtFiltro.setText("");
+      CBFiltro.setSelectedIndex(0);
+      
+       DefaultTableModel tb = (DefaultTableModel) jTable1.getModel();
+                int a = jTable1.getRowCount() - 1;
+                for (int i = a; i >= 0; i--) {
+                    tb.removeRow(tb.getRowCount() - 1);
+                }
+
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                for (GerenteVO u : gerenteControlador.listarGerente()) {
+            String[] fila = {
+                String.valueOf(u.getId()),
+                u.getContraseña(),
+                u.getNombres(),
+                u.getApellidos(),
+                u.getEmail(),
+                String.valueOf(u.getRegsitro_EPS()),
+                String.valueOf(u.getRegistro_clientes()),
+                u.getAnalisis_inventario()};
+            model.addRow(fila);
+        }
+    }//GEN-LAST:event_btnLimpiarActionPerformed
     
     /**
      * @param args the command line arguments
@@ -507,6 +580,7 @@ public class CRUD_gerente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnActualizar;
     private javax.swing.JButton BtnBuscar;
     private javax.swing.JButton BtnRegistrar;
     private javax.swing.JComboBox<String> CBFiltro;
@@ -518,8 +592,7 @@ public class CRUD_gerente extends javax.swing.JFrame {
     private javax.swing.JTextField TxtPass;
     private javax.swing.JTextField TxtRegisClient;
     private javax.swing.JTextField TxtRegisEps;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

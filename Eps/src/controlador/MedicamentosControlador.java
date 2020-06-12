@@ -66,7 +66,7 @@ public class MedicamentosControlador {
             JOptionPane.showMessageDialog(this.jFrame, "Medicamento No  Actualizado");
         }
     }
- public void DeleteGerente() {
+ public void DeleteMedicamento() {
 
         boolean respuesta = this.medicamentos.BorrarMedicamento();
         if (respuesta) {
@@ -78,6 +78,11 @@ public class MedicamentosControlador {
 
             JOptionPane.showMessageDialog(this.jFrame, "Medicamento No  Actualizado");
         }
+    }
+ public ArrayList<MedicamentosVO> ConFiltro(String Filtro, String Consulta) {
+
+         return this.medicamentos.ConFiltro(Filtro,Consulta);
+        
     }
 
 }
