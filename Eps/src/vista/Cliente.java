@@ -5,18 +5,77 @@
  */
 package vista;
 
+import VO.UsuarioVO;
+import controlador.UsuarioControlador;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+import modelo.usuarioModel;
+
+
 /**
  *
  * @author developer3
  */
 public class Cliente extends javax.swing.JFrame {
-
+private UsuarioVO usuarioVO;
+    private UsuarioControlador usuarioControlador ;
+   private usuarioModel usuario;
     /**
      * Creates new form Cliente
      */
     public Cliente() {
         initComponents();
+        
+        jTable2.getColumnModel().getColumn(0).setWidth(0);
+        jTable2.getColumnModel().getColumn(0).setMinWidth(0);
+        jTable2.getColumnModel().getColumn(0).setMaxWidth(0);
+         usuarioVO = new UsuarioVO();
+        usuarioControlador = new UsuarioControlador((usuarioVO), this);
+        usuario = new usuarioModel(usuarioVO);
+        jTable2.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent Mouse_evt) {
+                JTable table = (JTable) Mouse_evt.getSource();
+                Point point = Mouse_evt.getPoint();
+                int row = table.rowAtPoint(point);
+                if (Mouse_evt.getClickCount() == 1) {
+                   
+                    TxtId.setText(jTable2.getValueAt(jTable2.getSelectedRow(), 1).toString());
+                    TxtPass.setText(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
+                    TxtNombres.setText(jTable2.getValueAt(jTable2.getSelectedRow(), 2).toString());
+                    TxtApellidos.setText(jTable2.getValueAt(jTable2.getSelectedRow(), 3).toString());
+                    TxtEmail.setText(jTable2.getValueAt(jTable2.getSelectedRow(), 4).toString());
+                    TxtTelefono.setText(jTable2.getValueAt(jTable2.getSelectedRow(), 5).toString());
+                    TxtDireccion.setText(jTable2.getValueAt(jTable2.getSelectedRow(), 6).toString());
+                     CBEPS.setSelectedItem(jTable2.getValueAt(jTable2.getSelectedRow(), 6).toString());
+                    CBDrogeria.setSelectedItem(jTable2.getValueAt(jTable2.getSelectedRow(), 7).toString());
+                }
+
+            }
+        }
+        
+     );
+           
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        for (UsuarioVO u : usuarioControlador.listarUsuarios()) {
+            String[] fila = {
+                u.getConstraseña(),
+                String.valueOf(u.getId()),
+                u.getNombres(),
+                u.getApellidos(),
+                u.getEmail(),
+                u.getTelefono(),
+                u.getDireccion(),
+             String.valueOf(u.getCodigoDrogeria()),};
+            model.addRow(fila);
+        }
+        ListSelectionModel listusuario;
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,7 +94,7 @@ public class Cliente extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         CBFiltro = new javax.swing.JComboBox<>();
         TxtNombres = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        CBDrogeria = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         BtnRegistrar = new javax.swing.JButton();
@@ -44,16 +103,23 @@ public class Cliente extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        TxtRegisClient = new javax.swing.JTextField();
+        TxtTelefono = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         BtnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable2 = new javax.swing.JTable();
         txtFiltro = new javax.swing.JTextField();
         TxtApellidos = new javax.swing.JTextField();
+<<<<<<< HEAD
         TxtRegisClient1 = new javax.swing.JTextField();
         txtMenu = new javax.swing.JButton();
+=======
+        TxtDireccion = new javax.swing.JTextField();
+        TxtId = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        CBEPS = new javax.swing.JComboBox<>();
+>>>>>>> 21d560c696266dc700bba2f3e3fae05bbee9d9df
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,7 +138,7 @@ public class Cliente extends javax.swing.JFrame {
 
         jLabel2.setText("Nombres:");
 
-        CBFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Nombre", "Apellidos" }));
+        CBFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Nombres", "Apellidos", "Email" }));
 
         TxtNombres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,7 +146,7 @@ public class Cliente extends javax.swing.JFrame {
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione..." }));
+        CBDrogeria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "1", "2", "3", "4" }));
 
         jLabel6.setText("Dirección:");
 
@@ -113,14 +179,19 @@ public class Cliente extends javax.swing.JFrame {
 
         jLabel4.setText("Teléfono:");
 
-        TxtRegisClient.addActionListener(new java.awt.event.ActionListener() {
+        TxtTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtRegisClientActionPerformed(evt);
+                TxtTelefonoActionPerformed(evt);
             }
         });
 
         jButton3.setBackground(new java.awt.Color(255, 255, 204));
         jButton3.setText("Actualizar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Ingrese un dato para consultar:");
 
@@ -132,24 +203,24 @@ public class Cliente extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "id", "Nombres", "Apellidos", "E-mail", "Teléfono", "Dirección", "Droguería"
+                "contraseña", "id", "Nombres", "Apellidos", "E-mail", "Teléfono", "Dirección", "Droguería"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, true, true, true
+                true, false, false, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setName(""); // NOI18N
-        jScrollPane1.setViewportView(jTable1);
+        jTable2.setName(""); // NOI18N
+        jScrollPane1.setViewportView(jTable2);
 
         txtFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,12 +234,13 @@ public class Cliente extends javax.swing.JFrame {
             }
         });
 
-        TxtRegisClient1.addActionListener(new java.awt.event.ActionListener() {
+        TxtDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtRegisClient1ActionPerformed(evt);
+                TxtDireccionActionPerformed(evt);
             }
         });
 
+<<<<<<< HEAD
         txtMenu.setText("MENU");
         txtMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,12 +248,28 @@ public class Cliente extends javax.swing.JFrame {
             }
         });
 
+=======
+        TxtId.setBorder(null);
+        TxtId.setMaximumSize(new java.awt.Dimension(0, 0));
+        TxtId.setMinimumSize(new java.awt.Dimension(0, 0));
+        TxtId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtIdActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("EPS:");
+
+        CBEPS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Nueva Eps", "Salud Total" }));
+
+>>>>>>> 21d560c696266dc700bba2f3e3fae05bbee9d9df
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+<<<<<<< HEAD
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 673, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -242,14 +330,82 @@ public class Cliente extends javax.swing.JFrame {
                                         .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(0, 0, Short.MAX_VALUE))))
+=======
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CBFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(TxtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TxtEmail))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TxtPass))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TxtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TxtApellidos)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(TxtDireccion))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TxtTelefono))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CBDrogeria, 0, 248, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel11)
+                                .addGap(18, 18, 18)
+                                .addComponent(CBEPS, 0, 257, Short.MAX_VALUE))))
+                    .addComponent(jSeparator1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BtnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 673, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+>>>>>>> 21d560c696266dc700bba2f3e3fae05bbee9d9df
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+<<<<<<< HEAD
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtMenu)
                     .addComponent(jLabel1))
+=======
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(TxtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+>>>>>>> 21d560c696266dc700bba2f3e3fae05bbee9d9df
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -257,29 +413,33 @@ public class Cliente extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(TxtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(TxtRegisClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(TxtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(TxtRegisClient1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(TxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CBDrogeria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(TxtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(CBEPS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
                     .addComponent(BtnRegistrar)
                     .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -287,7 +447,7 @@ public class Cliente extends javax.swing.JFrame {
                     .addComponent(CBFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -302,7 +462,51 @@ public class Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtNombresActionPerformed
 
     private void BtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarActionPerformed
+     if ((TxtNombres.getText().equals("")) || (TxtApellidos.getText().equals("")) || (TxtEmail.getText().equals("")) || (TxtPass.getText().equals("")) || (TxtTelefono.getText().equals("")) || (TxtDireccion.getText().equals(""))|| (CBEPS.getSelectedItem().equals("Seleccionar..."))|| (CBDrogeria.getSelectedItem().equals("Seleccionar..."))) {
+            JOptionPane.showMessageDialog(this, "No puedes dejar campos Vacios");
+        } else {
+            usuarioVO.setNombres(TxtNombres.getText());
+            usuarioVO.setApellidos(TxtApellidos.getText());
+            usuarioVO.setEmail(TxtEmail.getText());
+            usuarioVO.setConstraseña(TxtPass.getText());
+            usuarioVO.setTelefono(TxtTelefono.getText());
+            usuarioVO.setDireccion(TxtDireccion.getText());
+            usuarioVO.setCodigoDrogeria(CBDrogeria.getSelectedIndex());
+            usuarioVO.setEps((String)CBEPS.getSelectedItem());
+            usuarioControlador.InUsuarios();
+               
 
+                DefaultTableModel tb = (DefaultTableModel) jTable2.getModel();
+                int a = jTable2.getRowCount() - 1;
+                for (int i = a; i >= 0; i--) {
+                    tb.removeRow(tb.getRowCount() - 1);
+                }
+
+                DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+              for (UsuarioVO u : usuarioControlador.listarUsuarios()) {
+            String[] fila = {
+                u.getConstraseña(),
+                String.valueOf(u.getId()),
+                u.getNombres(),
+                u.getApellidos(),
+                u.getEmail(),
+                u.getTelefono(),
+                u.getDireccion(),
+             String.valueOf(u.getCodigoDrogeria()),};
+            model.addRow(fila);
+        
+        }
+    
+      TxtNombres.setText("");
+      TxtApellidos.setText("");
+      TxtEmail.setText("");
+      TxtPass.setText("");
+      TxtTelefono.setText("");
+      TxtDireccion.setText("");
+        CBEPS.setSelectedIndex(0);
+      CBDrogeria.setSelectedIndex(0);
+      
+      }
     }//GEN-LAST:event_BtnRegistrarActionPerformed
 
     private void TxtPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtPassActionPerformed
@@ -311,14 +515,72 @@ public class Cliente extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        
+       TxtNombres.setText("");
+      TxtApellidos.setText("");
+      TxtEmail.setText("");
+      TxtPass.setText("");
+      TxtTelefono.setText("");
+      TxtDireccion.setText("");
+        CBEPS.setSelectedIndex(0);
+      CBDrogeria.setSelectedIndex(0);
+      
+       DefaultTableModel tb = (DefaultTableModel) jTable2.getModel();
+                int a = jTable2.getRowCount() - 1;
+                for (int i = a; i >= 0; i--) {
+                    tb.removeRow(tb.getRowCount() - 1);
+                }
+
+                DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+              for (UsuarioVO u : usuarioControlador.listarUsuarios()) {
+            String[] fila = {
+                u.getConstraseña(),
+                String.valueOf(u.getId()),
+                u.getNombres(),
+                u.getApellidos(),
+                u.getEmail(),
+                u.getTelefono(),
+                u.getDireccion(),
+             String.valueOf(u.getCodigoDrogeria()),};
+            model.addRow(fila);
+        
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void TxtRegisClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtRegisClientActionPerformed
+    private void TxtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtTelefonoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtRegisClientActionPerformed
+    }//GEN-LAST:event_TxtTelefonoActionPerformed
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
         // TODO add your handling code here:
+          if ((txtFiltro.getText().equals("")) || (CBFiltro.getSelectedItem().equals("seleccione..."))){
+            JOptionPane.showMessageDialog(this, "No puedes dejar campos Vacios en el filtro");
+        } else {
+    
+            String Consulta = txtFiltro.getText();
+            String filtro = ((String)CBFiltro.getSelectedItem());
+            
+                DefaultTableModel tb = (DefaultTableModel) jTable2.getModel();
+                int a = jTable2.getRowCount() - 1;
+                for (int i = a; i >= 0; i--) {
+                    tb.removeRow(tb.getRowCount() - 1);
+                }
+
+                DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+                for (UsuarioVO u : usuarioControlador.ConFiltro(filtro, Consulta)) {
+            String[] fila = {
+                u.getConstraseña(),
+                String.valueOf(u.getId()),
+                u.getNombres(),
+                u.getApellidos(),
+                u.getEmail(),
+                u.getTelefono(),
+                u.getDireccion(),
+             String.valueOf(u.getCodigoDrogeria())};
+            model.addRow(fila);
+        }
+            
+              }
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
     private void txtFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltroActionPerformed
@@ -329,9 +591,64 @@ public class Cliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtApellidosActionPerformed
 
-    private void TxtRegisClient1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtRegisClient1ActionPerformed
+    private void TxtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtDireccionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtRegisClient1ActionPerformed
+    }//GEN-LAST:event_TxtDireccionActionPerformed
+
+    private void TxtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtIdActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        
+         if ((TxtNombres.getText().equals("")) || (TxtApellidos.getText().equals("")) || (TxtEmail.getText().equals("")) || (TxtPass.getText().equals("")) || (TxtTelefono.getText().equals("")) || (TxtDireccion.getText().equals(""))|| (CBEPS.getSelectedItem().equals("Seleccionar..."))|| (CBDrogeria.getSelectedItem().equals("Seleccionar..."))) {
+            JOptionPane.showMessageDialog(this, "No puedes dejar campos Vacios");
+        } else {
+            usuarioVO.setNombres(TxtNombres.getText());
+            usuarioVO.setApellidos(TxtApellidos.getText());
+            usuarioVO.setEmail(TxtEmail.getText());
+            usuarioVO.setConstraseña(TxtPass.getText());
+            usuarioVO.setTelefono(TxtTelefono.getText());
+            usuarioVO.setDireccion(TxtDireccion.getText());
+            usuarioVO.setCodigoDrogeria(Integer.parseInt((String)CBDrogeria.getSelectedItem()));
+           usuarioVO.setEps((String)CBEPS.getSelectedItem());
+            usuarioVO.setId(Integer.parseInt(TxtId.getText()));
+            usuarioControlador.UpdateUsuarios();
+               
+
+                DefaultTableModel tb = (DefaultTableModel) jTable2.getModel();
+                int a = jTable2.getRowCount() - 1;
+                for (int i = a; i >= 0; i--) {
+                    tb.removeRow(tb.getRowCount() - 1);
+                }
+
+                DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+              for (UsuarioVO u : usuarioControlador.listarUsuarios()) {
+            String[] fila = {
+                u.getConstraseña(),
+                String.valueOf(u.getId()),
+                u.getNombres(),
+                u.getApellidos(),
+                u.getEmail(),
+                u.getTelefono(),
+                u.getDireccion(),
+             String.valueOf(u.getCodigoDrogeria()),};
+            model.addRow(fila);
+        
+        }
+    
+      TxtNombres.setText("");
+      TxtApellidos.setText("");
+      TxtEmail.setText("");
+      TxtPass.setText("");
+      TxtTelefono.setText("");
+      TxtDireccion.setText("");
+      CBEPS.setSelectedIndex(0);
+      CBDrogeria.setSelectedIndex(0);
+      
+      }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void txtMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMenuActionPerformed
         // TODO add your handling code here:
@@ -378,18 +695,21 @@ public class Cliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBuscar;
     private javax.swing.JButton BtnRegistrar;
+    private javax.swing.JComboBox<String> CBDrogeria;
+    private javax.swing.JComboBox<String> CBEPS;
     private javax.swing.JComboBox<String> CBFiltro;
     private javax.swing.JTextField TxtApellidos;
+    private javax.swing.JTextField TxtDireccion;
     private javax.swing.JTextField TxtEmail;
+    private javax.swing.JTextField TxtId;
     private javax.swing.JTextField TxtNombres;
     private javax.swing.JTextField TxtPass;
-    private javax.swing.JTextField TxtRegisClient;
-    private javax.swing.JTextField TxtRegisClient1;
+    private javax.swing.JTextField TxtTelefono;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -400,7 +720,7 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextField txtFiltro;
     private javax.swing.JButton txtMenu;
     // End of variables declaration//GEN-END:variables
