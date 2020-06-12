@@ -5,18 +5,71 @@
  */
 package vista;
 
+import VO.GerenteVO;
+import VO.MedicamentosVO;
+import controlador.MedicamentosControlador;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+import modelo.medicamentosModel;
+
+
 /**
  *
  * @author developer3
  */
 public class Medicamentos extends javax.swing.JFrame {
-
+private MedicamentosVO medicamentosVO;
+    private MedicamentosControlador medicamentosContolador ;
+   private medicamentosModel medicamentos;
     /**
      * Creates new form Medicamentos
      */
     public Medicamentos() {
         initComponents();
+        medicamentosVO = new MedicamentosVO();
+        medicamentosContolador = new MedicamentosControlador((medicamentosVO), this);
+        medicamentos = new medicamentosModel(medicamentosVO);
+                 
+        
+        jtable.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent Mouse_evt) {
+                JTable table = (JTable) Mouse_evt.getSource();
+                Point point = Mouse_evt.getPoint();
+                int row = table.rowAtPoint(point);
+                if (Mouse_evt.getClickCount() == 1) {
+                    Txtcodigo.setText(jtable.getValueAt(jtable.getSelectedRow(), 0).toString());
+                    TxtNombre.setText(jtable.getValueAt(jtable.getSelectedRow(), 1).toString());
+                    TxtCantidad.setText(jtable.getValueAt(jtable.getSelectedRow(), 2).toString());
+                    TxtCura.setText(jtable.getValueAt(jtable.getSelectedRow(), 3).toString());
+                    TxtPrecio.setText(jtable.getValueAt(jtable.getSelectedRow(), 4).toString());
+                    CBTipo.setSelectedItem(jtable.getValueAt(jtable.getSelectedRow(), 5).toString());
+                    CBPresentacion.setSelectedItem(jtable.getValueAt(jtable.getSelectedRow(), 6).toString());
+                }
+
+            }
+        }
+        
+     );
+        DefaultTableModel model = (DefaultTableModel) jtable.getModel();
+        for (MedicamentosVO u : medicamentosContolador.listarMedicamento()) {
+            String[] fila = {
+                String.valueOf(u.getCodigo()),
+                u.getNombre(),
+                String.valueOf(u.getCantidad()),
+                u.getCura(),
+                String.valueOf(u.getPrecio()),
+                u.getTipo(),
+                u.getPresentacion()};
+                model.addRow(fila);
+        }
+        ListSelectionModel listusuario;
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,27 +83,29 @@ public class Medicamentos extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         BtnRegistrar = new javax.swing.JButton();
-        TxtPass = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        TxtCura = new javax.swing.JTextField();
+        BtnLimpiar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        TxtRegisClient = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        TxtPrecio = new javax.swing.JTextField();
+        BtnActualizar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         BtnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtable = new javax.swing.JTable();
         txtFiltro = new javax.swing.JTextField();
-        TxtApellidos = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        TxtNombre = new javax.swing.JTextField();
+        CBTipo = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        TxtEmail = new javax.swing.JTextField();
+        TxtCantidad = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel9 = new javax.swing.JLabel();
         CBFiltro = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        CBPresentacion = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
+        codigo = new javax.swing.JTextField();
+        Txtcodigo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,30 +122,35 @@ public class Medicamentos extends javax.swing.JFrame {
             }
         });
 
-        TxtPass.addActionListener(new java.awt.event.ActionListener() {
+        TxtCura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtPassActionPerformed(evt);
+                TxtCuraActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(204, 255, 255));
-        jButton2.setText("Limpiar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        BtnLimpiar.setBackground(new java.awt.Color(204, 255, 255));
+        BtnLimpiar.setText("Limpiar");
+        BtnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                BtnLimpiarActionPerformed(evt);
             }
         });
 
         jLabel4.setText("Precio:");
 
-        TxtRegisClient.addActionListener(new java.awt.event.ActionListener() {
+        TxtPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtRegisClientActionPerformed(evt);
+                TxtPrecioActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(255, 255, 204));
-        jButton3.setText("Actualizar");
+        BtnActualizar.setBackground(new java.awt.Color(255, 255, 204));
+        BtnActualizar.setText("Actualizar");
+        BtnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnActualizarActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Ingrese un dato para consultar:");
 
@@ -102,7 +162,7 @@ public class Medicamentos extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -118,8 +178,8 @@ public class Medicamentos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setName(""); // NOI18N
-        jScrollPane1.setViewportView(jTable1);
+        jtable.setName(""); // NOI18N
+        jScrollPane1.setViewportView(jtable);
 
         txtFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,22 +187,22 @@ public class Medicamentos extends javax.swing.JFrame {
             }
         });
 
-        TxtApellidos.addActionListener(new java.awt.event.ActionListener() {
+        TxtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtApellidosActionPerformed(evt);
+                TxtNombreActionPerformed(evt);
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Analgésicos", "Antiácidos", "Antialérgicos", "Laxantes", "Antiinfecciosos", "Antiinflamatorios", "Antipiréticos", "Antitusivos" }));
+        CBTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Analgésicos", "Antiácidos", "Antialérgicos", "Laxantes", "Antiinfecciosos", "Antiinflamatorios", "Antipiréticos", "Antitusivos" }));
 
         jLabel8.setText("Nombre:");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Medicamentos");
 
-        TxtEmail.addActionListener(new java.awt.event.ActionListener() {
+        TxtCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtEmailActionPerformed(evt);
+                TxtCantidadActionPerformed(evt);
             }
         });
 
@@ -150,9 +210,28 @@ public class Medicamentos extends javax.swing.JFrame {
 
         CBFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Nombre", "Tipo", "Presentación" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Ampolletas", "Pastas", "Jarabe" }));
+        CBPresentacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Ampolletas", "Pastas", "Jarabe" }));
 
         jLabel10.setText("Presentación:");
+
+        codigo.setBorder(null);
+        codigo.setMaximumSize(new java.awt.Dimension(0, 0));
+        codigo.setMinimumSize(new java.awt.Dimension(0, 0));
+        codigo.setName(""); // NOI18N
+        codigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codigoActionPerformed(evt);
+            }
+        });
+
+        Txtcodigo.setBorder(null);
+        Txtcodigo.setMaximumSize(new java.awt.Dimension(0, 0));
+        Txtcodigo.setMinimumSize(new java.awt.Dimension(0, 0));
+        Txtcodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtcodigoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -166,40 +245,45 @@ public class Medicamentos extends javax.swing.JFrame {
                             .addComponent(jSeparator1)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(Txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(291, 291, 291)
+                                        .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel9)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(TxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(TxtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel3)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(TxtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(TxtCura, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel8)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(TxtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(TxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel4)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(TxtRegisClient, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(TxtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel6)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(BtnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(BtnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
+                                            .addComponent(BtnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                 .addComponent(jLabel10)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                                .addComponent(CBPresentacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel6)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(CBTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jSeparator2))
                         .addContainerGap())
@@ -220,7 +304,10 @@ public class Medicamentos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -228,30 +315,30 @@ public class Medicamentos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(CBTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(CBPresentacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(TxtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(TxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TxtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(TxtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2))))
+                            .addComponent(TxtCura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BtnLimpiar))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
+                    .addComponent(BtnActualizar)
                     .addComponent(BtnRegistrar)
                     .addComponent(jLabel4)
-                    .addComponent(TxtRegisClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -269,37 +356,180 @@ public class Medicamentos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarActionPerformed
+ if ((TxtNombre.getText().equals("")) || (TxtCantidad.getText().equals("")) || (TxtCura.getText().equals("")) || (TxtPrecio.getText().equals("")) || (CBTipo.getSelectedItem().equals("Seleccione...")) || (CBPresentacion.getSelectedItem().equals("Seleccione..."))) {
+            JOptionPane.showMessageDialog(this, "No puedes dejar campos Vacios");
+        } else {
+            medicamentosVO.setNombre(TxtNombre.getText());
+            medicamentosVO.setCantidad(Integer.parseInt(TxtCantidad.getText()));
+            medicamentosVO.setCura(TxtCura.getText());
+            medicamentosVO.setPrecio(Integer.parseInt(TxtPrecio.getText()));
+            medicamentosVO.setPresentacion((String)CBPresentacion.getSelectedItem());
+            medicamentosVO.setTipo((String)CBTipo.getSelectedItem());
+            medicamentosContolador.InMedicamento();
+               
 
+                DefaultTableModel tb = (DefaultTableModel) jtable.getModel();
+                int a = jtable.getRowCount() - 1;
+                for (int i = a; i >= 0; i--) {
+                    tb.removeRow(tb.getRowCount() - 1);
+                }
+
+                DefaultTableModel model = (DefaultTableModel) jtable.getModel();
+        for (MedicamentosVO u : medicamentosContolador.listarMedicamento()) {
+            String[] fila = {
+                String.valueOf(u.getCodigo()),
+                u.getNombre(),
+                String.valueOf(u.getCantidad()),
+                u.getCura(),
+                String.valueOf(u.getPrecio()),
+                u.getTipo(),
+                u.getPresentacion()};
+                model.addRow(fila);
+        }
+    
+      TxtNombre.setText("");
+      TxtCantidad.setText("");
+      TxtCura.setText("");
+      TxtPrecio.setText("");
+      CBTipo.setSelectedIndex(0);
+      CBPresentacion.setSelectedIndex(0);
+      
+      }
     }//GEN-LAST:event_BtnRegistrarActionPerformed
 
-    private void TxtPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtPassActionPerformed
+    private void TxtCuraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtCuraActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtPassActionPerformed
+    }//GEN-LAST:event_TxtCuraActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void BtnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLimpiarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+       
+        TxtNombre.setText("");
+      TxtCantidad.setText("");
+      TxtCura.setText("");
+      TxtPrecio.setText("");
+      CBTipo.setSelectedIndex(0);
+      CBPresentacion.setSelectedIndex(0);
+      txtFiltro.setText("");
+       CBFiltro.setSelectedIndex(0);
+      
+       DefaultTableModel tb = (DefaultTableModel) jtable.getModel();
+                int a = jtable.getRowCount() - 1;
+                for (int i = a; i >= 0; i--) {
+                    tb.removeRow(tb.getRowCount() - 1);
+                }
 
-    private void TxtRegisClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtRegisClientActionPerformed
+                DefaultTableModel model = (DefaultTableModel) jtable.getModel();
+        for (MedicamentosVO u : medicamentosContolador.listarMedicamento()) {
+            String[] fila = {
+                String.valueOf(u.getCodigo()),
+                u.getNombre(),
+                String.valueOf(u.getCantidad()),
+                u.getCura(),
+                String.valueOf(u.getPrecio()),
+                u.getTipo(),
+                u.getPresentacion()};
+                model.addRow(fila);
+        }
+    }//GEN-LAST:event_BtnLimpiarActionPerformed
+
+    private void TxtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtPrecioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtRegisClientActionPerformed
+    }//GEN-LAST:event_TxtPrecioActionPerformed
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
         // TODO add your handling code here:
+if ((txtFiltro.getText().equals("")) || (CBFiltro.getSelectedItem().equals("seleccione..."))){
+            JOptionPane.showMessageDialog(this, "No puedes dejar campos Vacios en el filtro");
+        } else {
+    
+            String Consulta = txtFiltro.getText();
+            String filtro = ((String)CBFiltro.getSelectedItem());
+            
+                DefaultTableModel tb = (DefaultTableModel) jtable.getModel();
+                int a = jtable.getRowCount() - 1;
+                for (int i = a; i >= 0; i--) {
+                    tb.removeRow(tb.getRowCount() - 1);
+                }
 
+                DefaultTableModel model = (DefaultTableModel) jtable.getModel();
+                for (MedicamentosVO u : medicamentosContolador.ConFiltro(filtro, Consulta)){
+                     String[] fila = {
+                String.valueOf(u.getCodigo()),
+                u.getNombre(),
+                String.valueOf(u.getCantidad()),
+                u.getCura(),
+                String.valueOf(u.getPrecio()),
+                u.getTipo(),
+                u.getPresentacion()};
+                model.addRow(fila);
+                }
+                }
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
     private void txtFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFiltroActionPerformed
 
-    private void TxtApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtApellidosActionPerformed
+    private void TxtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtApellidosActionPerformed
+    }//GEN-LAST:event_TxtNombreActionPerformed
 
-    private void TxtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtEmailActionPerformed
+    private void TxtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtCantidadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtEmailActionPerformed
+    }//GEN-LAST:event_TxtCantidadActionPerformed
+
+    private void codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codigoActionPerformed
+
+    private void TxtcodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtcodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtcodigoActionPerformed
+
+    private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
+        // TODO add your handling code here:
+        if ((TxtNombre.getText().equals("")) || (TxtCantidad.getText().equals("")) || (TxtCura.getText().equals("")) || (TxtPrecio.getText().equals("")) || (CBTipo.getSelectedItem().equals("Seleccione...")) || (CBPresentacion.getSelectedItem().equals("Seleccione..."))) {
+            JOptionPane.showMessageDialog(this, "No puedes dejar campos Vacios");
+        } else {
+            medicamentosVO.setCodigo(Integer.parseInt(Txtcodigo.getText()));
+            medicamentosVO.setNombre(TxtNombre.getText());
+            medicamentosVO.setCantidad(Integer.parseInt(TxtCantidad.getText()));
+            medicamentosVO.setCura(TxtCura.getText());
+            medicamentosVO.setPrecio(Integer.parseInt(TxtPrecio.getText()));
+            medicamentosVO.setPresentacion((String)CBPresentacion.getSelectedItem());
+            medicamentosVO.setTipo((String)CBTipo.getSelectedItem());
+            medicamentosContolador.UpdateMedicamento();
+               
+
+                DefaultTableModel tb = (DefaultTableModel) jtable.getModel();
+                int a = jtable.getRowCount() - 1;
+                for (int i = a; i >= 0; i--) {
+                    tb.removeRow(tb.getRowCount() - 1);
+                }
+
+                DefaultTableModel model = (DefaultTableModel) jtable.getModel();
+        for (MedicamentosVO u : medicamentosContolador.listarMedicamento()) {
+            String[] fila = {
+                String.valueOf(u.getCodigo()),
+                u.getNombre(),
+                String.valueOf(u.getCantidad()),
+                u.getCura(),
+                String.valueOf(u.getPrecio()),
+                u.getTipo(),
+                u.getPresentacion()};
+                model.addRow(fila);
+        }
+    
+      TxtNombre.setText("");
+      TxtCantidad.setText("");
+      TxtCura.setText("");
+      TxtPrecio.setText("");
+      CBTipo.setSelectedIndex(0);
+      CBPresentacion.setSelectedIndex(0);
+      
+      }
+    }//GEN-LAST:event_BtnActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -337,17 +567,19 @@ public class Medicamentos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnActualizar;
     private javax.swing.JButton BtnBuscar;
+    private javax.swing.JButton BtnLimpiar;
     private javax.swing.JButton BtnRegistrar;
     private javax.swing.JComboBox<String> CBFiltro;
-    private javax.swing.JTextField TxtApellidos;
-    private javax.swing.JTextField TxtEmail;
-    private javax.swing.JTextField TxtPass;
-    private javax.swing.JTextField TxtRegisClient;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> CBPresentacion;
+    private javax.swing.JComboBox<String> CBTipo;
+    private javax.swing.JTextField TxtCantidad;
+    private javax.swing.JTextField TxtCura;
+    private javax.swing.JTextField TxtNombre;
+    private javax.swing.JTextField TxtPrecio;
+    private javax.swing.JTextField Txtcodigo;
+    private javax.swing.JTextField codigo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
@@ -359,7 +591,7 @@ public class Medicamentos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jtable;
     private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 }
