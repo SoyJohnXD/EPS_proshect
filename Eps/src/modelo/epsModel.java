@@ -23,13 +23,13 @@ import javax.swing.JOptionPane;
 public class epsModel {
     private EpsVO epsVO;
     private Connection conn;
-    private final String TABLA = "gerente";
+    private final String TABLA = "eps";
     private JFrame jFrame;
 
     public EpsVO getEpsVO() {
         return epsVO;
     }
-    public void setGerenteVO(EpsVO epsVO) {
+    public void setEpsVO(EpsVO epsVO) {
         this.epsVO = epsVO;
     }
 
@@ -75,7 +75,7 @@ public class epsModel {
      public ArrayList<EpsVO> listarEps() {
         try {
             //sentencia con un parámetro indicado por el signo ?
-             String sentencia = "call spCargarEps()";
+             String sentencia = "call spConsultarEps()";
             //preparar sentencia
 
             CallableStatement pa = this.conn.prepareCall(sentencia);
@@ -89,11 +89,13 @@ public class epsModel {
                  eps.setIdGerente(resultado.getInt("idGerente"));
                  eps.setRegistro(resultado.getString("registro"));
                  eps.setBs_clientes(resultado.getInt("bs_clientes"));
-                 eps.setConvenio_pago(resultado.getInt("convenio_pago"));
+                 eps.setLista_conve(resultado.getInt("listas_conve"));
                  eps.setConvenio_pago(resultado.getLong("convenio_pago"));
+                 eps.setPatologias_cliente(resultado.getInt("patologias_clientes"));
                  eps.setEstado(resultado.getString("Estado"));
                 listaEps.add(eps);
             }
+            this.conn.close();
             return listaEps;
         } catch (SQLException ex) {
             System.out.println("Error en listar eps: " + ex.getMessage());
@@ -117,13 +119,13 @@ public class epsModel {
             pa.setInt(5, epsVO.getLista_conve());
             pa.setInt(6, epsVO.getPatologias_cliente());
             pa.setLong(7, epsVO.getConvenio_pago());
-            pa.setString(8, epsVO.getEstado());
             //ejecutar sentencia
             pa.execute();
+            this.conn.close();
             return true;
         }
         catch (SQLException ex) {
-
+           
 
         }
         return false;
