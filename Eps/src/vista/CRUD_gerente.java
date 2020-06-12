@@ -40,7 +40,26 @@ public class CRUD_gerente extends javax.swing.JFrame {
         gerenteVO = new GerenteVO();
         gerenteControlador = new GerenteControlador((gerenteVO), this);
         gerente = new gerenteModel(gerenteVO);
+        jTable1.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent Mouse_evt) {
+                JTable table = (JTable) Mouse_evt.getSource();
+                Point point = Mouse_evt.getPoint();
+                int row = table.rowAtPoint(point);
+                if (Mouse_evt.getClickCount() == 1) {
+                    TxtPass.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+                    TxtId.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                    TxtNombres.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+                    TxtApellidos.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString());
+                    TxtEmail.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString());
+                    TxtRegisClient.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 5).toString());
+                    TxtRegisEps.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 6).toString());
+                    TxtAnalisis.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 7).toString());
+                }
+
+            }
+        }
         
+     );
            
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         for (GerenteVO u : gerenteControlador.listarGerente()) {
@@ -521,7 +540,7 @@ if ((TxtNombres.getText().equals("")) || (TxtApellidos.getText().equals("")) || 
       TxtRegisEps.setText("");
       TxtAnalisis.setText("");
       txtFiltro.setText("");
-      CBFiltro.setSelectedIndex(0);
+      CBFiltro.setSelectedItem(0);
       
        DefaultTableModel tb = (DefaultTableModel) jTable1.getModel();
                 int a = jTable1.getRowCount() - 1;
