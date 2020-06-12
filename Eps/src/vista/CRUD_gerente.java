@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import modelo.gerenteModel;
+import vista.Menu_Administrador;
 
 
 /**
@@ -94,6 +95,7 @@ public class CRUD_gerente extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         TxtId = new javax.swing.JTextField();
         CBFiltro = new javax.swing.JComboBox<>();
+        txtMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -231,6 +233,13 @@ public class CRUD_gerente extends javax.swing.JFrame {
 
         CBFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Nombres", "Apellidos", "Email" }));
 
+        txtMenu.setText("MENU");
+        txtMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMenuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -298,16 +307,19 @@ public class CRUD_gerente extends javax.swing.JFrame {
                                 .addComponent(jLabel1)
                                 .addGap(33, 33, 33)
                                 .addComponent(TxtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtMenu)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(TxtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(TxtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMenu))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -543,6 +555,13 @@ if ((TxtNombres.getText().equals("")) || (TxtApellidos.getText().equals("")) || 
             model.addRow(fila);
         }
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void txtMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMenuActionPerformed
+        // TODO add your handling code here:
+                Menu_Administrador menu = new Menu_Administrador();
+        menu.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_txtMenuActionPerformed
     
     /**
      * @param args the command line arguments
@@ -607,5 +626,6 @@ if ((TxtNombres.getText().equals("")) || (TxtApellidos.getText().equals("")) || 
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtFiltro;
+    private javax.swing.JButton txtMenu;
     // End of variables declaration//GEN-END:variables
 }

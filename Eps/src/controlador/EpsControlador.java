@@ -34,8 +34,6 @@ public class EpsControlador {
     }
 
     public ArrayList<EpsVO> listarEps() {
-            new EPS().setVisible(true);
-            this.jFrame.setVisible(false);
         return this.eps.listarEps();
     }
  public void InEps() {

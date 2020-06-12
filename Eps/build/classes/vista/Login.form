@@ -40,11 +40,14 @@
                       <Group type="103" groupAlignment="2" attributes="0">
                           <Component id="TxtLogin" alignment="2" min="-2" pref="122" max="-2" attributes="0"/>
                           <Component id="CBRol" alignment="2" min="-2" pref="340" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="2" min="-2" pref="91" max="-2" attributes="0"/>
+                          <Component id="jLabel4" alignment="2" min="-2" pref="167" max="-2" attributes="0"/>
                           <Component id="TxtPass" alignment="2" min="-2" pref="340" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="TxtEmail" alignment="2" min="-2" pref="340" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="2" min="-2" pref="95" max="-2" attributes="0"/>
+                          <Component id="jLabel2" alignment="2" min="-2" pref="164" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">

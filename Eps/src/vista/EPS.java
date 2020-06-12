@@ -48,13 +48,13 @@ public class EPS extends javax.swing.JFrame {
                 Point point = Mouse_evt.getPoint();
                 int row = table.rowAtPoint(point);
                 if (Mouse_evt.getClickCount() == 1) {
-                    TxtNombres.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-                    TxtRegistro.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
-                    TxtBaseclientes.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString());
-                    TxtListaConvenios.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString());
-                    TxtConvenioPago.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 5).toString());
-                    TxtPatologias.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 6).toString());
-                    ComboGerente.setSelectedItem(jTable1.getValueAt(jTable1.getSelectedRow(), 7).toString());
+                    TxtNombres.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                    TxtRegistro.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+                    TxtBaseclientes.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+                    TxtListaConvenios.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString());
+                    TxtConvenioPago.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString());
+                    TxtPatologias.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 5).toString());
+                    ComboGerente.setSelectedItem(jTable1.getValueAt(jTable1.getSelectedRow(), 6).toString());
                 }
 
             }
@@ -113,6 +113,7 @@ public class EPS extends javax.swing.JFrame {
         ComboGerente = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         TxtPatologias = new javax.swing.JTextField();
+        txtMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -163,6 +164,11 @@ public class EPS extends javax.swing.JFrame {
 
         jButton3.setBackground(new java.awt.Color(255, 255, 204));
         jButton3.setText("Actualizar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -171,15 +177,7 @@ public class EPS extends javax.swing.JFrame {
             new String [] {
                 "id", "Nombre", "Registro", "Base clientes", "Lista de convenios", "Convenio de pago", "Patologías", "Gerente"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, true, true, true, true, true, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jTable1.setName(""); // NOI18N
         jScrollPane1.setViewportView(jTable1);
 
@@ -228,6 +226,13 @@ public class EPS extends javax.swing.JFrame {
             }
         });
 
+        txtMenu.setText("MENU");
+        txtMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMenuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -237,7 +242,10 @@ public class EPS extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtMenu))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -270,8 +278,9 @@ public class EPS extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel5)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(TxtPatologias, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addContainerGap(39, Short.MAX_VALUE))
+                                        .addComponent(TxtPatologias, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
@@ -296,7 +305,9 @@ public class EPS extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(txtMenu))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -416,6 +427,49 @@ public class EPS extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtPatologiasActionPerformed
 
+    private void txtMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMenuActionPerformed
+        // TODO add your handling code here:
+                        Menu_Administrador menu = new Menu_Administrador();
+        menu.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_txtMenuActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+if(TxtNombres.getText().equals("") || TxtBaseclientes.getText().equals("") || TxtConvenioPago.getText().equals("") || TxtListaConvenios.getText().equals("") || TxtPatologias.getText().equals("") || TxtRegistro.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "No puedes dejar campos Vacios");
+        }else{
+            epsVO.setNombre(TxtNombres.getText());
+            epsVO.setBs_clientes(Integer.parseInt(TxtBaseclientes.getText()));
+            epsVO.setConvenio_pago(Long.parseLong(TxtConvenioPago.getText()));
+            epsVO.setRegistro(TxtRegistro.getText());
+            epsVO.setPatologias_cliente(Integer.parseInt(TxtPatologias.getText()));
+            epsVO.setIdGerente(Integer.parseInt(ComboGerente.getSelectedItem().toString()));
+            epsVO.setLista_conve(Integer.parseInt(TxtListaConvenios.getText()));
+            epsControlador.UpdateEps();
+            
+                DefaultTableModel tb = (DefaultTableModel) jTable1.getModel();
+                int a = jTable1.getRowCount() - 1;
+                for (int i = a; i >= 0; i--) {
+                    tb.removeRow(tb.getRowCount() - 1);
+                }
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        for (EpsVO u : epsControlador.listarEps()) {
+            String[] fila = {
+                u.getNombre(),
+                u.getRegistro(),
+                String.valueOf(u.getBs_clientes()),
+                String.valueOf(u.getConvenio_pago()),
+               String.valueOf(u.getIdGerente()),
+                String.valueOf(u.getLista_conve()),
+                String.valueOf(u.getPatologias_cliente())
+            };
+            model.addRow(fila);
+        }
+        ListSelectionModel listusuario;
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -478,5 +532,6 @@ public class EPS extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtFiltro;
+    private javax.swing.JButton txtMenu;
     // End of variables declaration//GEN-END:variables
 }

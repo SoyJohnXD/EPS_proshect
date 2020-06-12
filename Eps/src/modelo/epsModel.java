@@ -92,10 +92,8 @@ public class epsModel {
                  eps.setLista_conve(resultado.getInt("listas_conve"));
                  eps.setConvenio_pago(resultado.getLong("convenio_pago"));
                  eps.setPatologias_cliente(resultado.getInt("patologias_clientes"));
-                 eps.setEstado(resultado.getString("Estado"));
                 listaEps.add(eps);
             }
-            this.conn.close();
             return listaEps;
         } catch (SQLException ex) {
             System.out.println("Error en listar eps: " + ex.getMessage());
@@ -121,7 +119,6 @@ public class epsModel {
             pa.setLong(7, epsVO.getConvenio_pago());
             //ejecutar sentencia
             pa.execute();
-            this.conn.close();
             return true;
         }
         catch (SQLException ex) {
@@ -147,7 +144,6 @@ public class epsModel {
             ps.setInt(5, epsVO.getLista_conve());
             ps.setInt(6, epsVO.getPatologias_cliente());
             ps.setLong(7, epsVO.getConvenio_pago());
-            ps.setString(8, epsVO.getEstado());
             //ejecutar sentencia
 
            int res = ps.executeUpdate();
